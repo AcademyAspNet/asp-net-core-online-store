@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <title>@(ViewBag.Title ?? "Интернет-магазин")</title>
+    </head>
+    <body>
+        <div class="container-md">
+            @if (IsSectionDefined("Header"))
+            {
+                <div class="border-bottom mb-5">
+                    @RenderSection("Header")
+                </div>
+            }
+
+            @RenderBody()
+        </div>
+    </body>
+</html>

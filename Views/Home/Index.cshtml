@@ -1,0 +1,27 @@
+﻿@using OnlineStore.Models.Domain
+
+@model OnlineStore.Models.View.HomePageViewModel
+
+@section Header {
+    <h1>Список товаров</h1>
+}
+
+@if (Model.Products is not null)
+{
+    <ol class="list-group list-group-numbered">
+        @foreach (Product product in Model.Products)
+        {
+            <li class="list-group-item">
+                <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id">
+                    @product.Name
+                </a>
+            </li>
+        }
+    </ol>
+}
+else
+{
+    <div class="alert alert-danger">
+        Товаров пока что нет :(
+    </div>
+}
