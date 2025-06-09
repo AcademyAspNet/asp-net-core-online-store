@@ -1,59 +1,25 @@
-﻿using Microsoft.Data.SqlClient;
-using OnlineStore.Models.Domain;
-using System.Data;
-using System.Xml.Linq;
+﻿using OnlineStore.Data.Repositories;
+using OnlineStore.Models.Entities;
 
 namespace OnlineStore.Services.Implementations
 {
     public class ProductService : IProductService
     {
-        private readonly string _connectionString;
+        private readonly IProductRepository _productRepository;
 
-        public ProductService(IConfiguration configuration)
+        public ProductService(IProductRepository productRepository)
         {
-            _connectionString = configuration.GetConnectionString("Default");
+            _productRepository = productRepository;
         }
 
         public List<Product> GetProducts()
         {
-            List<Product> products = new List<Product>();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT Id, Name FROM Products;";
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Product product = new Product()
-                        {
-                            Id = reader.GetInt64(0),
-                            Name = reader.GetString(1)
-                        };
-
-                        products.Add(product);
-                    }
-                }
-            }
-
-            return products;
+            return _productRepository.GetAll();
         }
 
         public Product? GetProductById(long id)
         {
-            foreach (Product product in GetProducts())
-            {
-                if (product.Id == id)
-                    return product;
-            }
-
-            return null;
+            return _productRepository.GetById(id);
         }
     }
 }
