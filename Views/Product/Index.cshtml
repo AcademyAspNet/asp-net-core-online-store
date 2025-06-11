@@ -1,7 +1,26 @@
-﻿@model OnlineStore.Models.Entities.Product
+﻿@using OnlineStore.Models.Entities
+@model OnlineStore.Models.View.ProductViewModel
 
 @section Header {
-    <h1>@Model.Name</h1>
+    <h1>Товар: @Model.Product.Name</h1>
 }
 
-<p>Id: @Model.Id</p>
+<p>Общие сведения о товаре:</p>
+<p>
+    <b>Идентификатор товара</b>: @Model.Product.Id<br />
+    <b>Описание товара</b>: @Model.Product.Description<br />
+    <h3>Цена: @Model.Product.Price ₽</h3>
+</p>
+
+<hr />
+
+<p>Отзывы о товаре:</p><br />
+
+@foreach (UserReview review in Model.Reviews)
+{
+    <p>
+        <b>Автор отзыва</b>: @review.Author<br />
+        <b>Текст отзыва</b>: @review.Content<br />
+        <b>Рейтинг</b>: @review.Rating / 5<br />
+    </p>
+}

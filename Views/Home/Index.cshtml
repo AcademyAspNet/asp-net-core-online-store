@@ -1,15 +1,15 @@
 ﻿@using OnlineStore.Models.Entities
 
-@model OnlineStore.Models.View.HomePageViewModel
+@model OnlineStore.Models.Containers.Page<Product>;
 
 @section Header {
     <h1>Список товаров</h1>
 }
 
-@if (Model.Products is not null)
+@if (Model.Items is not null)
 {
     <ol class="list-group list-group-numbered">
-        @foreach (Product product in Model.Products)
+        @foreach (Product product in Model.Items)
         {
             <li class="list-group-item">
                 <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id">
@@ -23,5 +23,41 @@ else
 {
     <div class="alert alert-danger">
         Товаров пока что нет :(
+    </div>
+}
+
+@section Footer {
+    @{
+        int pageNumber = Model.CurrentPage + 1;
+    }
+
+    <div class="container-fluid mt-3">
+        <nav>
+            <ul class="pagination">
+                @if (Model.CurrentPage > 0)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-page="@(Model.CurrentPage - 1)">Предыдущая</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-route-page="@(Model.CurrentPage - 1)">@(pageNumber - 1)</a>
+                    </li>
+                }
+
+                <li class="page-item active">
+                    <a class="page-link" href="">@pageNumber</a>
+                </li>
+
+                @if (Model.CurrentPage < Model.MaxPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-page="@(Model.CurrentPage + 1)">@(pageNumber + 1)</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-route-page="@(Model.CurrentPage + 1)">Следующая</a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </div>
 }

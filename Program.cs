@@ -14,9 +14,11 @@ namespace OnlineStore
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<BaseRepository>();
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IUserReviewRepository, UserReviewRepository>();
 
+            builder.Services.AddScoped<IUserReviewService, UserReviewService>();
             builder.Services.AddScoped<IProductService, ProductService>();
 
             var app = builder.Build();

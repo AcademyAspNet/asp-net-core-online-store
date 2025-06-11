@@ -1,4 +1,5 @@
 ﻿using OnlineStore.Data.Repositories;
+using OnlineStore.Models.Containers;
 using OnlineStore.Models.Entities;
 
 namespace OnlineStore.Services.Implementations
@@ -15,6 +16,11 @@ namespace OnlineStore.Services.Implementations
         public List<Product> GetProducts()
         {
             return _productRepository.GetAll();
+        }
+
+        public Page<Product> GetProducts(int page)
+        {
+            return _productRepository.GetAll(page);
         }
 
         public Product? GetProductById(long id)

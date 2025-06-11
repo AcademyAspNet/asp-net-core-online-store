@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStore.Models.Entities;
+using OnlineStore.Models.View;
 using OnlineStore.Services;
 using OnlineStore.Services.Implementations;
 
@@ -8,10 +9,12 @@ namespace OnlineStore.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IUserReviewService _userReviewService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IUserReviewService userReviewService)
         {
             _productService = productService;
+            _userReviewService = userReviewService;
         }
 
         [Route("{controller}/{action}/{id:int?}")]
@@ -25,7 +28,15 @@ namespace OnlineStore.Controllers
             if (product == null)
                 return RedirectToAction("Index", "Home");
 
-            return View(product);
+            List<UserReview> reviews = _userReviewService.GetReviewsForProduct(product);
+
+            ProductViewModel model = new ProductViewModel()
+            {
+                Product = product,
+                Reviews = reviews
+            };
+
+            return View(model);
         }
     }
 }

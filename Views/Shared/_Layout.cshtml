@@ -17,6 +17,13 @@
             }
 
             @RenderBody()
+
+        @if (IsSectionDefined("Footer"))
+        {
+            <div class="border-top mt-5">
+                @RenderSection("Footer")
+            </div>
+        }
         </div>
     </body>
 </html>

@@ -18,7 +18,7 @@ namespace OnlineStore.Data.Repositories.Implementations
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand();
+                SqlCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Id, Author, Content, Rating FROM Reviews WHERE ProductId = @productId";
                 command.Parameters.Add("@productId", SqlDbType.BigInt).Value = productId;
 
