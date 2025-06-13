@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using OnlineStore.Data.Models;
 using OnlineStore.Models.Containers;
-using OnlineStore.Models.Entities;
 using OnlineStore.Models.View;
 using OnlineStore.Services;
 using System.Data;

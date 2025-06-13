@@ -1,10 +1,10 @@
-﻿using OnlineStore.Models.Entities;
+﻿using OnlineStore.Data.Models;
 
 namespace OnlineStore.Models.View
 {
     public class ProductViewModel
     {
         public required Product Product { get; set; }
-        public required List<UserReview> Reviews { get; set; }
+        public required List<Review> Reviews { get; set; }
     }
 }

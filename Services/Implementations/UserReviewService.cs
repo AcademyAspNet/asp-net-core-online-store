@@ -1,20 +1,22 @@
-﻿using OnlineStore.Data.Repositories;
-using OnlineStore.Models.Entities;
+﻿using OnlineStore.Data;
+using OnlineStore.Data.Models;
 
 namespace OnlineStore.Services.Implementations
 {
     public class UserReviewService : IUserReviewService
     {
-        private readonly IUserReviewRepository _userReviewRepository;
+        private readonly ApplicationDbContext _database;
 
-        public UserReviewService(IUserReviewRepository userReviewRepository)
+        public UserReviewService(ApplicationDbContext database)
         {
-            _userReviewRepository = userReviewRepository;
+            _database = database;
         }
 
-        public List<UserReview> GetReviewsForProduct(Product product)
+        public List<Review> GetReviewsForProduct(Product product)
         {
-            return _userReviewRepository.GetByProductId(product.Id);
+            return _database.Reviews
+                .Where(review => review.ProductId == product.Id)
+                .ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@using OnlineStore.Models.Entities
+﻿@using OnlineStore.Data.Models
 @model OnlineStore.Models.View.ProductViewModel
 
 @section Header {
@@ -16,11 +16,11 @@
 
 <p>Отзывы о товаре:</p><br />
 
-@foreach (UserReview review in Model.Reviews)
+@foreach (Review review in Model.Reviews)
 {
     <p>
         <b>Автор отзыва</b>: @review.Author<br />
-        <b>Текст отзыва</b>: @review.Content<br />
+        <b>Текст отзыва</b>: @review.Text<br />
         <b>Рейтинг</b>: @review.Rating / 5<br />
     </p>
 }

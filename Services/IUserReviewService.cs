@@ -1,9 +1,9 @@
-﻿using OnlineStore.Models.Entities;
+﻿using OnlineStore.Data.Models;
 
 namespace OnlineStore.Services
 {
     public interface IUserReviewService
     {
-        List<UserReview> GetReviewsForProduct(Product product);
+        List<Review> GetReviewsForProduct(Product product);
     }
 }
