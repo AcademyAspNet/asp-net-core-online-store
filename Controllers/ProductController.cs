@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStore.Data.Models;
+using OnlineStore.Models.DTO;
 using OnlineStore.Models.View;
 using OnlineStore.Services;
 using OnlineStore.Services.Implementations;
@@ -28,7 +29,12 @@ namespace OnlineStore.Controllers
             if (product == null)
                 return RedirectToAction("Index", "Home");
 
-            List<Review> reviews = _userReviewService.GetReviewsForProduct(product);
+            List<ReviewDTO> reviews = new List<ReviewDTO>();
+
+            foreach (Review review in _userReviewService.GetReviewsForProduct(product))
+            {
+                reviews.Add(ReviewDTO.FromEntity(review));
+            }
 
             ProductViewModel model = new ProductViewModel()
             {

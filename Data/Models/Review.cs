@@ -5,9 +5,10 @@
         public long Id { get; set; }
         public long ProductId { get; set; }
         public required Product Product { get; set; }
-        public required string Author { get; set; }
+        public long UserId { get; set; }
+        public required User User { get; set; }
         public required string Text { get; set; }
         public int Rating { get; set; }
-        public DateTime CreateAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

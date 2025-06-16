@@ -1,4 +1,5 @@
 ﻿@using OnlineStore.Data.Models
+@using OnlineStore.Models.DTO
 @model OnlineStore.Models.View.ProductViewModel
 
 @section Header {
@@ -14,13 +15,54 @@
 
 <hr />
 
-<p>Отзывы о товаре:</p><br />
-
-@foreach (Review review in Model.Reviews)
+@if (Model.Reviews.Count > 0)
 {
-    <p>
-        <b>Автор отзыва</b>: @review.Author<br />
-        <b>Текст отзыва</b>: @review.Text<br />
-        <b>Рейтинг</b>: @review.Rating / 5<br />
-    </p>
+    <p>Отзывы о товаре:</p><br />
+
+    @foreach (ReviewDTO review in Model.Reviews)
+    {
+        <p>
+            <b>Автор отзыва</b>: @review.Author<br />
+            <b>Текст отзыва</b>: @review.Text<br />
+            <b>Рейтинг</b>: @review.Rating / 5<br />
+        </p>
+    }
+}
+else
+{
+    <p>Отзывов пока нет.</p>
+}
+
+<hr />
+
+@{
+    ReviewDTO? reviewModel = Model.ReviewModel;
+}
+
+@if (reviewModel != null)
+{
+
+    @using(Html.BeginForm("CreateReview", "Review", FormMethod.Post))
+    {
+        @Html.Hidden("productId", Model.Product.Id);
+
+        <div class="mb-3">
+            @Html.Label("Text", "Отзыв:", new { @class = "form-label" })
+            @Html.TextArea("Text", "", 3, 20, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            @Html.Label("Rating", "Рейтинг:", new { @class = "form-label" })
+            
+            @for (int i = 0; i < 5; i++)
+            {
+                @Html.RadioButton("Rating", i + 1)
+                @Html.Label("Rating", $"{i + 1}", new { @class = "form-label ms-1 me-3" })
+            }
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Оставить отзыв</button>
+        </div>
+    }
 }
